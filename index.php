@@ -17,8 +17,10 @@ session_start();
 require_once getcwd().'/libraries/constants.php';
 
 /* Requiring all essential files */
+require_once  SITE_PATH.'/libraries/DBconnect.php';
 require_once  SITE_PATH.'/Controller.php';
 require_once  SITE_PATH.'/libraries/InitiateUser.php';
+
 /* Method calls from views handled here */
 if (isset ( $_REQUEST ['controller'] )) {
 		
