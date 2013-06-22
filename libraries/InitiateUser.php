@@ -9,7 +9,7 @@
  * *************************************************************************** 
  */
 
-class InitiateUser {
+class InitiateUser extends DBConnection {
     
 	/**
 	 * @var unknown
