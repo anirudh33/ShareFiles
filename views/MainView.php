@@ -101,33 +101,33 @@ $(document).ready(function() {
 	
 	<div class="loginform" id="SignupForm">
 		
-        <form method="post" action="#">
+        <form method="post" action="index.php?controller=Controller&method=registerUser">
 		
 			<div>
 			<div class="form-item">
 			
 			 <label for="edit-name">Email:</label>
-			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="name" maxlength="60">
+			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="email" maxlength="60">
 			</div>
 			
 			<div class="form-item">
 			
 			 <label for="edit-name">Firstname:</label>
-			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="name" maxlength="60">
+			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="firstname" maxlength="60">
 			</div>
 			
 			<div class="form-item">
 			
 			 <label for="edit-name">Lastname:</label>
-			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="name" maxlength="60">
+			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="lastname" maxlength="60">
 			</div>
 			
 			<div class="form-item">
 			
 			 <label for="edit-pass">Password:</label>
-			 <input type="password" class="form-text required" size="15" maxlength="60" id="edit-pass" name="pass">
+			 <input type="password" class="form-text required" size="15" maxlength="60" id="edit-pass" name="password">
 			</div>
-			
+			<input type="submit" class="form-text required" size="15" maxlength="60" id="edit-pass" >
 			</div>
 		</form>
 		

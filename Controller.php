@@ -1,13 +1,5 @@
 <?php
-/*
- * *************************** Creation Log ******************************* 
- * File Name 	- MainController.php 
- * Description 	- Main Controller 
- * Version - 1.0 
- * Created by	- Anirudh Pandita 
- * Created on - June 22, 2013 
- */
-
+include SITE_PATH.'/model/UserModel.php';
 class Controller 
 {	
 	 /* Any messages to be shown to user */
@@ -172,51 +164,22 @@ class Controller
 	/* Called when user submits the registration form */
 	public function registerUser() 
 	{
-		$authObject = new Authenticate ();
-		$authObject->validateRegistration ();
+		//$authObject = new Authenticate ();
+		//$authObject->validateRegistration ();
+		$obj =new User();
 		$email = $_POST ["email"];
+		$userExists=$obj->checkemail($email);
+		if($userExists =="true") {
+			echo "user With same email already exists";
+			exit;
+		}
 		$password = $_POST ["password"];
 		$firstname = $_POST ["firstname"];
 		$lastname = $_POST ["lastname"];
-		$phone = $_POST ["phone"];
-		$address = $_POST ["address"];
-		$qualification = $_POST ["qualification"];
-		$gender = $_POST ["gender"];
-		$date = $_POST ["date"];
-		$usertype = $_POST ["usertype"];
-		$status = '2';
-		$profilepicture = addslashes ( file_get_contents ( $_FILES ["profilepicture"] ["tmp_name"] ) );
-		$confirm_code = md5 ( uniqid ( rand () ) );
 		
-		$message = "http://localhost/ulearn/branches/development/index.php?method=confirm&controller=Main&passkey=$confirm_code&email=$email";
+		$obj->newRegistration ($email, $password, $firstname, $lastname);
+		return 1;
 		
-		$mail = new PHPMailer ();
-		$mail->IsSMTP (); // enable SMTP
-		$mail->SMTPDebug = 0; // debugging: 1 = errors and messages, 2 = messages only
-		$mail->SMTPAuth = true; // authentication enabled
-		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-		$mail->Host = 'smtp.gmail.com';
-		$mail->Port = 465;
-		$mail->Username = "ulearnoss@gmail.com";
-		$mail->Password = "root@osscube.com";
-		$mail->Subject = "Confirmation Mail from Ulearn";
-		$mail->Body = $message;
-		$mail->AddAddress ( $email );
-		
-		
-		if (! $mail->Send ()) {			
-			$this->setCustomMessage ( "ErrorMessage", "Mail Not Sent" );
-		} else {
-			$this->setCustomMessage ( "SuccessMessage", "Mail sent," );
-		}		
-		if ($_POST ["usertype"] == "student") {
-			// echo"student";
-			$obj = new Registration ();
-			$obj->newStudentRegistration ( $email, $password, $firstname, $lastname, $phone, $address, $qualification, $gender, $date, $usertype, $status, $profilepicture, $confirm_code );
-		} elseif ($_POST ["usertype"] == "teacher") {
-			$obj = new Registration ();
-			$obj->newTeacherRegistration ( $email, $password, $firstname, $lastname, $phone, $address, $qualification, $gender, $date, $usertype, $status, $profilepicture, $confirm_code );
-		}		
 	}
 	
 	/* Logs out the user by destroying session */
