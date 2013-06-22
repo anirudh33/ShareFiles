@@ -6,6 +6,7 @@ class User extends DBConnection {
 	{
 	
 		$result = $this->_db->insert('user', array('email' => $email, 'password'=> sha1($password),'first_name' => $firstname,'last_name'=>$lastname));
+		mkdir(SITE_PATH . "/uploads/" . $email,0777);
 		return 1;
 	}
 	public function checkemail($email) 

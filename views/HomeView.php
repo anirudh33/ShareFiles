@@ -1,20 +1,15 @@
 <body background="<?php echo SITE_URL?>/assets/images/share1.jpg">
-
+<a href="index.php?controller=Controller&method=logout">log out</a>
+<hr>
+<br>
+Your files
+<br>
 <?php 
-	public function downloadContent($email)
-	{
-		$files = array ();
-		$path = SITE_PATH . "/uploads/" . $email ;
-		if ($handle = opendir ( $path )) {
-			while ( false !== ($file = readdir ( $handle )) ) {
-				if ($file != "." && $file != "..") {
-					$files [] = "<a href='uploads/'" . $email . "/" . $file.">".$file."</a>";
-				}
-			}
-			closedir ( $handle );
-		}
-		return $files;
-	}
+foreach ($fileList as $key=>$value) {
 
+echo $value."<br>";
 
+}
 ?>
+<br>
+<a href="index.php?controller=Controller&method=showUploadView">Upload your files</a>

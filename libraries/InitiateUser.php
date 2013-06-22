@@ -15,12 +15,7 @@ class InitiateUser extends DBConnection {
 	 * @var unknown
 	 */
 	private $_password;
-	
-	/**
-	 * @var unknown
-	 */
-	private $_result = array ();
-	
+
 	/**
 	 * @var unknown
 	 */
@@ -47,19 +42,6 @@ class InitiateUser extends DBConnection {
 		$this->_password = $password;
 	}
 	
-	/**
-	 * @return unknown
-	 */
-	private function getResult() {
-		return $this->_result;
-	}
-	
-	/**
-	 * @param unknown $result
-	 */
-	private function setResult($result) {
-		$this->_result = $result;
-	}
 	
 	/**
 	 * @return unknown
@@ -142,55 +124,22 @@ class InitiateUser extends DBConnection {
 	/**
 	 * @param $email of user logging in
 	 * @param $password encrypted of user logging in as 
-	 * we have store encrypted versions while registration
-	 * @return number 1 if user exists with active status else 0
+	 * we have stored encrypted versions while registration
+	 * @return number 1 if user exists else 0
 	 * Usage: fetches the user if exists who is logging in
 	 */
 	private function fetchUser($email, $password) {
-		
+		$bool=0;
 		$data['columns']	= array('user.email', 'user.password');
 		$data['tables']		= 'user';
 		$data['conditions'] = array(array("email ='".$email."' AND password='".$password."'"),true);
 		$result = $this->_db->select($data);
 		
 		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
-			print_r($row);
-		}
-		die;
-// 		$this->db->Fields ( array (
-// 				"user_id",
-// 				"email",
-// 				"user_type" 
-// 		) );
-// 		$this->db->Where ( array (
-// 				"email" => $email,
-// 				"password" => $password 
-// 		) );
-// 		$this->db->From ( "userdetails" );
-// 		$bool = $this->db->select ();
-		
-// 		if ($bool == 1) {
-// 			$this->_result = $this->db->resultArray ();
-// 			if (! empty ( $this->_result )) {
-// 				$status = $this->fetchStatus ( $this->_result [0] ["user_type"] .
-// 				     "details", $this->_result [0] ["user_id"] );
-				
-// 				if (! empty ( $this->_result [0] ["user_id"] ) && 
-// 				                $status == true) {
-					
-// 					$this->_userID = $this->_result [0] ["user_id"];
-// 					$this->_userType = $this->_result [0] ["user_type"];
-// 					$this->_emailID = $this->_result [0] ["email"];
-// 				} else {
-					
-// 					$bool = 0;
-// 				}
-// 			} else {
-// 				$bool = 0;
-// 			}
-// 		}
-		
-// 		return $bool;
+			
+			$bool=1;
+				}
+		return $bool;
 	}	
 	
 	/**
