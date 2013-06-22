@@ -37,8 +37,7 @@ class Authenticate
      */
     public function setMessage ($_message)
     {
-        $this->_message .= $_message . "<br>";
-        $this->setCustomMessage("ErrorMessage", $_message);
+        $this->_message .= $_message . "<br>";        
     }
     
 
@@ -117,7 +116,7 @@ class Authenticate
         $msg = $this->getMessage();
         
         if (! empty($msg)) {
-            header("Location:" . $_SESSION["DOMAIN_PATH"] . "/index.php?msg=" . $this->getMessage() . "");
+            header("Location:" . SITE_URL . "/index.php?msg=" . $this->getMessage() . "");
             die();
         }
     }

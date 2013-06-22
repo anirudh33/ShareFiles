@@ -76,20 +76,22 @@ $(document).ready(function() {
 	
 	<div class="loginform" id="Login_form">
 		
-        <form method="post" action="#">
+        <form method="post" action="index.php?controller=Controller&method=initiateLogin">
 		
 			<div>
 			
 			<div class="form-item">
 			
 			 <label for="edit-name">Username:</label>
-			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="name" maxlength="60">
+			 <input type="text" class="form-text required" value="" size="15" id="edit-name" name="fieldEmail" maxlength="60">
 			</div>
 			
 			<div class="form-item">
 			
 			 <label for="edit-pass">Password:</label>
-			 <input type="password" class="form-text required" size="15" maxlength="60" id="edit-pass" name="pass">
+			 <input type="password" class="form-text required" size="15" maxlength="60" id="edit-pass" name="fieldPassword">
+			 <br><br>
+			 <input type="submit" value="Submit"> 
 			</div>
 			
 			</div>

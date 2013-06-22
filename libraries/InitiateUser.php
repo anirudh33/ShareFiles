@@ -119,9 +119,8 @@ class InitiateUser extends DBConnection {
 				$this->setSession ();
 				return 1;
 			} else {
-				$msg = "Login Failed username or password does not exist";
-				$this->setCustomMessage ( "ErrorMessage", $msg );
-				header ( "Location:" . $_SESSION ["DOMAIN_PATH"] . "/index.php?msg=$msg" );				
+				$msg = "Login Failed username or password does not exist";				
+				header ( "Location:" . SITE_URL . "/index.php?msg=$msg" );				
 			}		 
 	}
 		
@@ -148,40 +147,50 @@ class InitiateUser extends DBConnection {
 	 * Usage: fetches the user if exists who is logging in
 	 */
 	private function fetchUser($email, $password) {
-		$this->db->Fields ( array (
-				"user_id",
-				"email",
-				"user_type" 
-		) );
-		$this->db->Where ( array (
-				"email" => $email,
-				"password" => $password 
-		) );
-		$this->db->From ( "userdetails" );
-		$bool = $this->db->select ();
 		
-		if ($bool == 1) {
-			$this->_result = $this->db->resultArray ();
-			if (! empty ( $this->_result )) {
-				$status = $this->fetchStatus ( $this->_result [0] ["user_type"] .
-				     "details", $this->_result [0] ["user_id"] );
-				
-				if (! empty ( $this->_result [0] ["user_id"] ) && 
-				                $status == true) {
-					
-					$this->_userID = $this->_result [0] ["user_id"];
-					$this->_userType = $this->_result [0] ["user_type"];
-					$this->_emailID = $this->_result [0] ["email"];
-				} else {
-					
-					$bool = 0;
-				}
-			} else {
-				$bool = 0;
-			}
+		$data['columns']	= array('user.email', 'user.password');
+		$data['tables']		= 'user';
+		$data['conditions'] = array(array("email ='".$email."' AND password='".$password."'"),true);
+		$result = $this->_db->select($data);
+		
+		while($row = $result->fetch(PDO::FETCH_ASSOC)) {
+			print_r($row);
 		}
+		die;
+// 		$this->db->Fields ( array (
+// 				"user_id",
+// 				"email",
+// 				"user_type" 
+// 		) );
+// 		$this->db->Where ( array (
+// 				"email" => $email,
+// 				"password" => $password 
+// 		) );
+// 		$this->db->From ( "userdetails" );
+// 		$bool = $this->db->select ();
 		
-		return $bool;
+// 		if ($bool == 1) {
+// 			$this->_result = $this->db->resultArray ();
+// 			if (! empty ( $this->_result )) {
+// 				$status = $this->fetchStatus ( $this->_result [0] ["user_type"] .
+// 				     "details", $this->_result [0] ["user_id"] );
+				
+// 				if (! empty ( $this->_result [0] ["user_id"] ) && 
+// 				                $status == true) {
+					
+// 					$this->_userID = $this->_result [0] ["user_id"];
+// 					$this->_userType = $this->_result [0] ["user_type"];
+// 					$this->_emailID = $this->_result [0] ["email"];
+// 				} else {
+					
+// 					$bool = 0;
+// 				}
+// 			} else {
+// 				$bool = 0;
+// 			}
+// 		}
+		
+// 		return $bool;
 	}	
 	
 	/**
